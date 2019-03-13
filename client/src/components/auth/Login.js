@@ -21,8 +21,13 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  componentWillReceiveProps = (nextProps) => {
+  componentDidMount = () => {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push('/dashboard');
+    }
+  }
 
+  componentWillReceiveProps = (nextProps) => {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push('/dashboard');
     }
@@ -52,7 +57,7 @@ class Login extends Component {
           <div className="col-md-8 m-auto">
             <h1 className="display-4 text-center">Log In</h1>
             <p className="lead text-center">Sign in to your DevConnector account</p>
-            <form novalidate onSubmit={this.onSubmit}>
+            <form onSubmit={this.onSubmit}>
               <div className="form-group">
                 <input 
                 type="email" 
